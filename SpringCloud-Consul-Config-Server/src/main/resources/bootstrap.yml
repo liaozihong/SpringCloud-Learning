@@ -1,0 +1,48 @@
+# Server configuration
+server:
+  port: 8081
+spring:
+  application:
+    name: consul-pusher
+  # consul 配置
+  cloud:
+    consul:
+      # consul服务器地址
+      host: localhost
+      # consul服务端口
+      port: 8500
+      config:
+        # enabled为true表示启用配置管理功能
+        enabled: true
+        # watch选项为配置监视功能，主要监视配置的改变
+        watch:
+          enabled: true
+          delay: 10000
+          wait-time: 30
+        # 表示如果没有发现配置，是否抛出异常，true为是，false为否，当为false时，consul会打印warn级别的日志信息
+        fail-fast: false
+        # 表示使用的配置格式
+        format: key_value
+        # 配置所在的应用目录名称
+        prefix: config
+        name: ${spring.application.name}
+      # 服务发现配置
+      discovery:
+        # 启用服务发现
+        enabled: true
+        # 启用服务注册
+        register: true
+        # 服务停止时取消注册
+        deregister: true
+        # 表示注册时使用IP而不是hostname
+        prefer-ip-address: true
+        # 执行监控检查的频率
+        health-check-interval: 30s
+        # 设置健康检查失败多长时间后，取消注册
+        health-check-critical-timeout: 30s
+        # 健康检查的路径
+        health-check-path: /actuator/info
+        # 服务注册标识，格式为：应用名称+服务器IP+端口
+        instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+logging:
+  config: classpath:logback-develop.xml
