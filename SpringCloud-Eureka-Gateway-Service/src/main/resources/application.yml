@@ -17,4 +17,4 @@ zuul:
   routes:
     api-a:
       path: /user-api/**
-      serviceId: user-service  #将以"/user-api/**"开头的Uriqq转发到服务名为user-service的服务
+      serviceId: user-service  #将以"/user-api/**"开头的URL转发到服务名为user-service的服务

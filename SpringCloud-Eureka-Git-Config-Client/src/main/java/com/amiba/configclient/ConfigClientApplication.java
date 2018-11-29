@@ -7,7 +7,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -28,7 +27,7 @@ public class ConfigClientApplication {
     /**
      * http://localhost:8882/actuator/bus-refresh
      * 利用Rabbit队列，使用post请求上面链接以达到刷新配置，避免重启服务。
-     * /actuator/bus-refresh接口可以指定服务，即使用”destination”参数，
+     * /actuator/bus-refresh接口可以指定服务，即使用”destination”参数， Post请求
      * 比如 “/actuator/bus-refresh?destination=customers:**” 即刷新服务名为customers的所有服务。
      */
 
