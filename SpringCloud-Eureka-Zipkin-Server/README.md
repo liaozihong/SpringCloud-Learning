@@ -6,7 +6,7 @@ Spring Cloud Sleuth 主要功能就是在分布式系统中提供追踪解决方
 随着服务的越来越多，对调用链的分析会越来越复杂。它们之间的调用关系也许如下：
 
 ![](https://ws1.sinaimg.cn/large/006mOQRagy1fxowcmy7kmj30ew0dytnj.jpg)
-三、术语
+#### 术语
 * Span：基本工作单元，例如，在一个新建的span中发送一个RPC等同于发送一个回应请求给RPC，span通过一个64位ID唯一标识，trace以另一个64位ID表示，span还有其他数据信息，比如摘要、时间戳事件、关键值注释(tags)、span的ID、以及进度ID(通常是IP地址) span在不断的启动和停止，同时记录了时间信息，当你创建了一个span，你必须在未来的某个时刻停止它。
 * Trace：一系列spans组成的一个树状结构，例如，如果你正在跑一个分布式大数据工程，你可能需要创建一个trace。
 * Annotation：用来及时记录一个事件的存在，一些核心annotations用来定义一个请求的开始和结束

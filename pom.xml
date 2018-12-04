@@ -34,6 +34,7 @@
         <module>SpringCloud-Eureka-Git-Config-Client</module>
         <module>SpringCloud-Eureka-Turbine</module>
         <module>SpringCloud-Eureka-Feign-Service</module>
+        <module>SpringBoot-Admin-Server</module>
     </modules>
 
     <properties>
@@ -48,10 +49,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
 

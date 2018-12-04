@@ -1,0 +1,31 @@
+server:
+  port: 8762
+spring:
+  application:
+    name: service-hi
+  boot:
+    admin:
+      client:
+        url: "http://localhost:8081"
+        password: root
+        username: root
+        instance:
+          prefer-ip: true
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+  client:
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761}/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
