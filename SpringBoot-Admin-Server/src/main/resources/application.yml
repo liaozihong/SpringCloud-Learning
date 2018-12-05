@@ -4,7 +4,21 @@ spring:
   profiles:
     active:
     - secure
-
+  boot:
+    admin:
+      notify:
+        mail:
+          to: 15017263266@163.com  # 邮件接收方
+          from: 911858173@qq.com  # 邮件发送方
+  mail:
+    host: smtp.qq.com   # qq邮箱服务器主机host，需要在QQ邮箱设置中开启smtp协议 163邮箱为smtp.163.com
+    username: 911858173@qq.com  # qq邮箱账号
+    password: nqylfjzcykkpbcch  # 第三方登录的授权码
+    properties:
+      mail.debug: false
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.ssl.enable: true
 
 # tag::configuration-eureka[]
 eureka:   #<1>
@@ -21,12 +35,12 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"  #<2>
+        include: "*"
   endpoint:
     health:
       show-details: ALWAYS
 server:
-  port: 8081
+  port: 8000
 # end::configuration-eureka[]
 
 ---
