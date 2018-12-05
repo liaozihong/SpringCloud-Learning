@@ -6,7 +6,7 @@ spring:
   boot:
     admin:
       client:
-        url: "http://localhost:8081"
+        url: "http://localhost:8000"
         password: root
         username: root
         instance:
