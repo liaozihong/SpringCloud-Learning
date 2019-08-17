@@ -1,0 +1,27 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+server:
+  port: 8765
+spring:
+  application:
+    name: service-feign
+  boot:
+    admin:
+      client:
+        url: "http://localhost:8000"
+        password: root
+        username: root
+        instance:
+          prefer-ip: true
+
+#配置详细信息的采集
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

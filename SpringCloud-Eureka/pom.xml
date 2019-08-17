@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.dashuai.learning</groupId>
+        <artifactId>springcloud</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <artifactId>springcloud-eureka</artifactId>
+    <version>1.0.0</version>
+    <name>springcloud-eureka</name>
+    <packaging>pom</packaging>
+    <description>Demo project for Spring Boot</description>
+
+    <modules>
+        <module>SpringCloud-Eureka-Server</module>
+        <module>SpringCloud-Eureka-Client</module>
+        <module>SpringCloud-Eureka-Git-Config-Server</module>
+        <module>SpringCloud-Eureka-Git-Config-Client</module>
+        <module>SpringCloud-Eureka-Feign-Service</module>
+        <module>SpringCloud-Eureka-Gateway-Service</module>
+        <module>SpringCloud-Eureka-Ribbon-Service</module>
+        <module>SpringCloud-Eureka-Zuul</module>
+        <module>SpringCloud-Eureka-Zipkin-Server</module>
+        <module>SpringCloud-Eureka-Turbine</module>
+    </modules>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -19,25 +19,10 @@
     </parent>
 
     <modules>
-        <module>SpringCloud-Consul-Producer</module>
-        <module>SpringCloud-Consul-Consumer</module>
-        <module>SpringCloud-Consul-Consumer-Feign</module>
-        <module>SpringCloud-Consul-Config-Server</module>
-        <module>SpringCloud-Consul-Turbine</module>
-        <module>SpringCloud-Eureka-Server</module>
-        <module>SpringCloud-Eureka-Client</module>
-        <module>SpringCloud-Eureka-Gateway-Service</module>
-        <module>SpringCloud-Eureka-Ribbon-Service</module>
-        <module>SpringCloud-Eureka-Zuul</module>
-        <module>SpringCloud-Eureka-Zipkin-Server</module>
-        <module>SpringCloud-Eureka-Git-Config-Server</module>
-        <module>SpringCloud-Eureka-Git-Config-Client</module>
-        <module>SpringCloud-Eureka-Turbine</module>
-        <module>SpringCloud-Eureka-Feign-Service</module>
-        <module>SpringCloud-Nacos-Config-Example</module>
-        <module>SpringCloud-Nacos-Service-Provider</module>
-        <module>SpringCloud-Nacos-Service-Consumer</module>
         <module>SpringBoot-Admin-Server</module>
+        <module>SpringCloud-Consul</module>
+        <module>SpringCloud-Eureka</module>
+        <module>SpringCloud-Nacos</module>
     </modules>
 
     <properties>
