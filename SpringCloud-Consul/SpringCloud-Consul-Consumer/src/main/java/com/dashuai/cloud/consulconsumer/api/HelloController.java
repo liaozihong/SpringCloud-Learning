@@ -1,5 +1,6 @@
 package com.dashuai.cloud.consulconsumer.api;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -22,6 +23,8 @@ public class HelloController {
     private LoadBalancerClient loadBalancerClient;
     @Autowired
     private DiscoveryClient discoveryClient;
+    @Autowired
+    RestTemplate restTemplate;
 
     /**
      * 获取所有服务
@@ -29,6 +32,7 @@ public class HelloController {
      * @return the object
      */
     @RequestMapping("/services")
+
     public Object services() {
         return discoveryClient.getInstances("consul-hi");
     }
@@ -50,12 +54,18 @@ public class HelloController {
      * @return the string
      */
     @RequestMapping("/hi")
-    public String sayHi(String name){
+    @HystrixCommand(fallbackMethod = "hiError")
+    public String sayHi(String name) {
         ServiceInstance serviceInstance = loadBalancerClient.choose("consul-hi");
         System.out.println("服务地址：" + serviceInstance.getUri());
         System.out.println("服务名称：" + serviceInstance.getServiceId());
-        String callServiceResult = new RestTemplate().getForObject(serviceInstance.getUri().toString() + "/hi?name="+name, String.class);
+        String callServiceResult = restTemplate.getForObject(serviceInstance.getUri().toString() + "/hi?name=" + name, String.class);
         System.out.println(callServiceResult);
         return callServiceResult;
+    }
+
+
+    public String hiError(String name) {
+        return "hi," + name + ",sorry,error！";
     }
 }

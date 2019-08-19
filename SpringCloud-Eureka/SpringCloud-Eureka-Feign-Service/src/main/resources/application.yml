@@ -25,3 +25,4 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+feign.hystrix.enabled: true

@@ -1,4 +1,4 @@
-package com.dashuai.cloud.client.config;
+package com.dashuai.cloud.consulconsumerfeign.config;
 
 import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
