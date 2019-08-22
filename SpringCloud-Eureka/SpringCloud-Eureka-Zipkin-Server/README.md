@@ -20,3 +20,6 @@ cr - Client Received   -表明span的结束，客户端成功接收到服务端�
 并且只有调用了，server-zipkin才会收集数据的，这就是为什么叫服务追踪了。
 
 通过引入spring-cloud-starter-zipkin依赖和设置spring.zipkin.base-url就可以了。
+
+参考链接：  
+https://blog.csdn.net/forezp/article/details/87075651  
