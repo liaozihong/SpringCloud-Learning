@@ -3,13 +3,186 @@ server:
 spring:
   application:
     name: gateway-service
-#  sleuth:
-#    sampler:
-#      probability: 1.0 # 将采样比例设置为 1.0，也就是全部都需要。默认是 0.1
-#  zipkin:
-#    base-url: http://localhost:9411 # 指定了 Zipkin 服务器的地址
-#
-#eureka:
-#  client:
-#    service-url:
-#      defaultZone: http://localhost:8761/eureka/
+  #  profiles:
+  #    active: limit_route
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      routes:
+        - id: service-hi
+          uri: lb://SERVICE-HI
+          predicates:
+            - Path=/demo/**
+          filters:
+            - StripPrefix=1
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+
+---
+#当请求的时间在这个配置的时间之后，请求会被路由到http://httpbin.org:80/get。
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: after_route
+          uri: http://httpbin.org:80/get
+          predicates:
+            - After=2017-01-20T17:42:47.789-07:00[America/Denver]
+  profiles: after_route
+
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: header_route
+          uri: http://httpbin.org:80/get
+          predicates:
+            - Header=X-Request-Id, \d+
+  profiles: header_route
+
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: cookie_route
+          uri: http://httpbin.org:80/get
+          predicates:
+            - Cookie=name, forezp
+  profiles: cookie_route
+
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: host_route
+          uri: http://httpbin.org:80/get
+          predicates:
+            - Host=**.fangzhipeng.com
+  profiles: host_route
+
+---
+#curl -XPOST localhost:5000
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: method_route
+          uri: http://httpbin.org:80/get
+          predicates:
+            - Method=GET
+  profiles: method_route
+
+---
+# curl localhost:5000/foo/dew
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: path_route
+          uri: http://httpbin.org:80/get
+          predicates:
+            - Path=/foo/{segment}
+  profiles: path_route
+
+---
+#  curl localhost:5000?foo=ba
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: query_route
+          uri: http://httpbin.org:80/get
+          predicates:
+            - Query=foo, ba.
+  profiles: query_route
+
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: query_route
+          uri: http://httpbin.org:80/get
+          predicates:
+            - Query=foo
+  profiles: query_route_2
+
+---
+# 测试使用filter 添加请求头， AddRequestHeaderGatewayFilterFactory
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: add_request_header_route
+          uri: http://httpbin.org:80/get
+          filters:
+            - AddRequestHeader=X-Request-Foo, Bar
+          predicates:
+            - After=2017-01-20T17:42:47.789-07:00[America/Denver]
+  profiles: add_request_header_route
+
+---
+# 重定向路由
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: rewritepath_route
+          uri: https://blog.csdn.net
+          predicates:
+            - Path=/foo/**
+          filters:
+            - RewritePath=/foo/(?<segment>.*), /$\{segment}
+  profiles: rewritepath_route
+
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: elapse_route
+          uri: http://httpbin.org:80/get
+          filters:
+            - RequestTime=true
+          predicates:
+            - After=2017-01-20T17:42:47.789-07:00[America/Denver]
+  profiles: elapse_route
+
+---
+# 限流设置
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: limit_route
+          uri: http://httpbin.org:80/get
+          predicates:
+            - After=2017-01-20T17:42:47.789-07:00[America/Denver]
+          filters:
+            - name: RequestRateLimiter
+              args:
+                key-resolver: '#{@hostAddrKeyResolver}'
+                redis-rate-limiter.replenishRate: 1
+                redis-rate-limiter.burstCapacity: 3
+                #burstCapacity，令牌桶总容量。
+                #replenishRate，令牌桶每秒填充平均速率。
+                #key-resolver，用于限流的键的解析器的 Bean 对象的名字。它使用 SpEL 表达式根据#{@beanName}从 Spring 容器中获取 Bean 对象。
+  application:
+    name: gateway-limiter
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+  profiles: limit_route
+
+---
